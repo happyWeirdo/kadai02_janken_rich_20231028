@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- デバイスの幅 -->
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            position: absolute;
+            border-radius: 50%;
+            animation: float 5s linear infinite, drift 5s linear infinite;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(0, -20px);
+            }
+        }
+        
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(calc(var(--x) * (100vw - 50px)), calc(var(--y) * (100vh - 50px)));
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="floating-element"></div>
+    <script>
+        const element = document.querySelector('.floating-element');
+        const style = getComputedStyle(element);
+        const width = parseInt(style.width, 10);
+        const height = parseInt(style.height, 10);
+
+        function getRandomDirection() {
+            return Math.random() * 2 - 1;
+        }
+
+        function updatePosition() {
+            const x = getRandomDirection();
+            const y = getRandomDirection();
+            element.style.setProperty('--x', x);
+            element.style.setProperty('--y', y);
+            setTimeout(updatePosition, 5000);
+        }
+
+        updatePosition();
+    </script>
+</body>
+
+</html>

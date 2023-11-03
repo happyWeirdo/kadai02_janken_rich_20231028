@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="floating-element" style="background-color: #3498db"></div>
+    <div class="floating-element" style="background-color: #34db87"></div>
+    <div class="floating-element" style="background-color: #db9834"></div>
+    <script>
+        // 全要素の取得
+        const elements = document.querySelectorAll(".floating-element");
+
+        function getRandomFrequency() {
+            return 1 + Math.random() * 2;
+        }
+        // 時折反対側に反射する
+        function sometimeInvertDirection(currentDirection) {
+            const chance = 0.1; // 確率
+            if (Math.random() < chance) {
+                return -currentDirection;
+            }
+            return currentDirection;
+        }
+        // 各要素ごとに衝突の計算
+        elements.forEach((element, index) => {
+            let t = 0;
+            let freqX = getRandomFrequency();
+            let freqY = getRandomFrequency();
+
+            function updatePosition() {
+                // 画面の幅・高さの半分を計算
+                const halfWidth = window.innerWidth / 2 - 25; // 要素の半分のサイズ
+                const halfHeight = window.innerHeight / 2 - 25; // 要素の半分のサイズ
+                // 正弦波を利用してX、Y座標を計算
+                const x = halfWidth * Math.sin(freqX * t);
+                const y = halfHeight * Math.sin(freqY * t);
+                // それぞれの要素の衝突判定
+                elements.forEach((element2, index2) => {
+                    if (
+                        index !== index2 &&
+                        element.style.transform.match(/-?\d+(\.\d+)/g) &&
+                        element2.style.transform.match(/-?\d+(\.\d+)/g)
+                    ) {
+                        // 移動計算中の要素
+                        const circle1 = {
+                            x: parseInt(
+                                element.style.transform.match(/-?\d+(\.\d+)/g)[0] ?? 0
+                            ) + 25,
+                            y: parseInt(
+                                element.style.transform.match(/-?\d+(\.\d+)/g)[1] ?? 0
+                            ) + 25,
+                            radius: 25,
+                        };
+                        // それ以外の要素
+                        const circle2 = {
+                            x: parseInt(
+                                element2.style.transform.match(/-?\d+(\.\d+)/g)[0] ?? 0
+                            ) + 25,
+                            y: parseInt(
+                                element2.style.transform.match(/-?\d+(\.\d+)/g)[1] ?? 0
+                            ) + 25,
+                            radius: 25,
+                        };
+                        // 衝突した時の動作
+                        if (areCirclesColliding(circle1, circle2)) {
+                            console.log("The circles are colliding!");
+                        }
+                    }
+                });
+                // 壁に衝突した場合の処理
+                if (x >= halfWidth || x <= -halfWidth) {
+                    freqX = getRandomFrequency() * (freqX > 0 ? -1 : 1); // Xの周波数をランダムに変更
+                }
+                if (y >= halfHeight || y <= -halfHeight) {
+                    freqY = getRandomFrequency() * (freqY > 0 ? -1 : 1); // Yの周波数をランダムに変更
+                }
+                // 計算したX、Y座標を要素に適用
+                element.style.transform = `translate(${x}px, ${y}px)`;
+                t += 0.005; // 時間の加算（速度）
+                requestAnimationFrame(updatePosition); // 次のフレームで再度実行
+            }
+            updatePosition();
+        });
+    </script>
+</body>
+
+</html>

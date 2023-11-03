@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <title>画像を画面内で反射運動させる</title>
+    <script language="JavaScript">
+        function moveImg() {
+            imgX += dx;
+            imgY += dy;
+            document.myIMG.style.left = imgX;
+            document.myIMG.style.top = imgY;
+            if ((imgX < 1) || (imgX > winW)) dx = -dx;
+            if ((imgY < 1) || (imgY > winH)) dy = -dy;
+        }
+
+        function set() {
+            if (document.all) {
+                winW = document.body.clientWidth;
+                winH = document.body.clientHeight;
+            }
+            if (!document.all && document.getElementById) {
+                winW = window.innerWidth;
+                winH = window.innerHeight;
+            }
+            winW = winW - document.myIMG.width;
+            winH = winH - document.myIMG.height;
+            imgX = imgY = 0;
+            dx = dy = 8;
+            timerID = setInterval("moveImg()", 100);
+        }
+        // -->
+    </script>
+</head>
+
+<body onLoad="set()">
+    <img src="image.jpg" name="myIMG" style="position:absolute;top:0px;">
+</body>
+
+</html>

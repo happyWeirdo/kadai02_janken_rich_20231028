@@ -1,0 +1,253 @@
+.ganpuku_mimifuku {
+    color: rgb(240, 137, 177);
+    border-width: 5px;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: white;
+}
+
+.favcolor {
+    color: rgb(240, 137, 177);
+    border-width: 3px;
+    font-size: 40px;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: white;
+    top: 500px;
+    left: 300px;
+    margin-left: 200px;
+    margin-top: 250px;
+}
+
+
+/* .test2 {
+    width: 300px;
+    height: 500px;
+    background-color: #3498db;
+    position: absolute;
+    border-radius: 10%;
+} */
+
+
+/* カードの処理 */
+
+.myCard {
+    background-color: transparent;
+    width: 190px;
+    height: 254px;
+    perspective: 1000px;
+}
+
+.title {
+    font-size: 1.5em;
+    font-weight: 900;
+    text-align: center;
+    margin: 0;
+}
+
+.innerCard {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.myCard:hover .innerCard {
+    transform: rotateY(180deg);
+}
+
+.frontSide,
+.backSide {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 1rem;
+    color: white;
+    box-shadow: 0 0 0.3em rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+}
+
+.frontSide,
+.frontSide::before {
+    background: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
+}
+
+.backSide,
+.backSide::before {
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+}
+
+.backSide {
+    transform: rotateY(180deg);
+}
+
+.frontSide::before,
+.backSide::before {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: '';
+    width: 110%;
+    height: 110%;
+    position: absolute;
+    z-index: -1;
+    border-radius: 1em;
+    filter: blur(20px);
+    animation: animate 5s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        opacity: 0.3;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.3;
+    }
+}
+
+
+/* 一つ一つの要素の定義 */
+
+.square0 {
+    height: 400px;
+    width: 400px;
+    background: rgb(133, 209, 223);
+    text-align: center;
+    top: 80px;
+}
+
+.square1 {
+    height: 200px;
+    width: 200px;
+    background: rgb(206, 232, 236);
+}
+
+.square2 {
+    height: 200px;
+    width: 200px;
+    background: rgb(123, 224, 109);
+}
+
+.square3 {
+    height: 200px;
+    width: 200px;
+    background: rgb(177, 154, 175);
+}
+
+.square4 {
+    height: 200px;
+    width: 200px;
+    background: rgb(223, 226, 175);
+}
+
+.square5 {
+    height: 200px;
+    width: 200px;
+    background: rgb(238, 174, 121);
+}
+
+.square6 {
+    height: 200px;
+    width: 200px;
+    background: rgb(172, 236, 147);
+}
+
+.square7 {
+    height: 200px;
+    width: 200px;
+    background: rgb(134, 127, 236);
+}
+
+.square8 {
+    height: 200px;
+    width: 200px;
+    background: rgb(235, 187, 193);
+}
+
+.square9 {
+    height: 200px;
+    width: 200px;
+    background: rgb(182, 91, 118);
+}
+
+.square10 {
+    height: 200px;
+    width: 200px;
+    background: rgb(236, 199, 96);
+}
+
+.square11 {
+    height: 200px;
+    width: 200px;
+    background: rgb(162, 155, 196);
+}
+
+.square12 {
+    height: 200px;
+    width: 200px;
+    background: rgb(143, 224, 238);
+}
+
+.square13 {
+    height: 200px;
+    width: 200px;
+    background: rgb(214, 233, 161);
+}
+
+.square14 {
+    height: 200px;
+    width: 200px;
+    background: rgb(235, 111, 148);
+}
+
+.square15 {
+    height: 200px;
+    width: 200px;
+    background: rgb(238, 152, 118);
+}
+
+
+/* General Styling */
+
+body {
+    padding: 2rem;
+    background: rgb(245, 202, 163);
+    font-family: fot-tsukuardgothic-std, "游ゴシック体", "Yu Gothic", "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+
+h1 {
+    font-size: 4rem;
+    position: absolute;
+    top: 80px;
+    left: 100px;
+}
+
+
+/* h2 {
+    font-size: 2rem;
+    position: absolute;
+    top: 80px;
+    left: 100px;
+} */
+
+
+/* h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+} */

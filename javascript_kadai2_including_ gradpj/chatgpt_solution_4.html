@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            width: 50px;
+            height: 50px;
+            background-color: #3498db;
+            position: absolute;
+            border-radius: 50%;
+            animation: float 9s ease-in-out infinite, drift 9s linear infinite;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(0, -20px);
+            }
+        }
+        
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0);
+            }
+            25% {
+                transform: translate(calc(50vw * var(--x)), calc(50vh * var(--y)));
+            }
+            50% {
+                transform: translate(calc(100vw * var(--x)), calc(100vh * var(--y)));
+            }
+            75% {
+                transform: translate(calc(-50vw * var(--x)), calc(-50vh * var(--y)));
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="floating-element"></div>
+    <script>
+        const element = document.querySelector('.floating-element');
+        const style = getComputedStyle(element);
+        const width = parseInt(style.width, 10);
+        const height = parseInt(style.height, 10);
+        const randomX = Math.random() * 2 - 1;
+        const randomY = Math.random() * 2 - 1;
+        element.style.setProperty('--x', randomX);
+        element.style.setProperty('--y', randomY);
+    </script>
+</body>
+
+</html>
